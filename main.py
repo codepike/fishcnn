@@ -1,9 +1,8 @@
-import tensorflow as tf
 import numpy as np
-import os
-import pprint
-from cnn import model
-from cnn import task
+import tensorflow as tf
+
+import model
+import task
 
 flags = tf.app.flags
 flags.DEFINE_integer("epoch", 25, "Epoch to train [25]")
@@ -25,19 +24,14 @@ flags.DEFINE_boolean("visualize", False, "True for visualizing, False for nothin
 FLAGS = flags.FLAGS
 
 def main():
-    print(FLAGS.__flags)
-    pp = pprint.PrettyPrinter()
-    pp.pprint(flags.FLAGS.__flags)
-
-    print(FLAGS.epoch)
-    print(FLAGS.learning_rate)
-
     cnn_model = model.CNN()
 
-    training = task.Train(cnn_model)
-
-    training.run(FLAGS)
-
-
+    if FLAGS.train:
+        training = task.Train(cnn_model)
+        training.run(FLAGS)
+    else:
+        predict = task.Predict(cnn_model)
+        ans = predict.run(FLAGS, './mnist_png/testing/5/8.png')
+        print(ans)
 if __name__ == '__main__':
     main()
