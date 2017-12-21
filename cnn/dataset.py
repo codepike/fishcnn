@@ -24,7 +24,7 @@ def read_file(filename):
     print(labels.shape)
 
     # read pixels from the second column and after
-    data = csv[:, 0:]
+    data = csv[:, 1:]
     labels = labels.astype(np.int32)
     return labels, data
 
