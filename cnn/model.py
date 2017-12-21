@@ -1,8 +1,12 @@
 import tensorflow as tf
 
-from utils import read_data
-
 class CNN(object):
+    """A plain convolution neural network.
+    Args:
+        reader: a reader providing training data
+        is_training: is training
+        keep_prob: keep probability
+    """
     def __init__(self,  reader, is_training=True, keep_prob=0.5):
         self.reader = reader
         self.keep_prob = keep_prob
@@ -60,7 +64,6 @@ class CNN(object):
 
             # 10
             self.logits = full_layer(full1_drop, 10)
-
             self.softmax = tf.nn.softmax(self.logits)
 
     def calc_loss(self):
